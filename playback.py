@@ -10,6 +10,7 @@ import cv2
 import keyboard
 import sys
 import ctypes
+import os
 
 def main():
   # Read filename from user
