@@ -1,3 +1,9 @@
+"""
+eyetracker.py
+Tracks eye movement to an image and saves the data
+@author Gwen Bradforth, Leticia Pinto-Alva
+@version 2023-6-16
+"""
 import pygame
 import time
 import tobii_research as tr

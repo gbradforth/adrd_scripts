@@ -1,3 +1,9 @@
+"""
+camera.py
+Records video
+@author Gwen Bradforth
+@version 2023-6-16
+"""
 import cv2
 
 def main():
