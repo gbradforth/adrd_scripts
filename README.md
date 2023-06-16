@@ -3,15 +3,9 @@
 Eyetracker and Playback are Python files for recording eye tracker data and playing it back. 
 
 ## Installation
-Eyetracker has several dependencies. Use the package manager [pip](https://pip.pypa.io/en/stable/) to install the following.
-* `pygame`
-* `numpy`
-* `opencv-python`
-* `tobii-research`
-* `keyboard`
-
+Eyetracker has several dependencies. Use the package manager [pip](https://pip.pypa.io/en/stable/) to install them.
 ```bash
-pip install [package]
+pip install requirements.txt
 ```
 Make sure to run this code with python 3.10. `tobii-research` doesn't have compatibility with 3.11. You can do this using a `conda` environment if needed.    
  In order to run this program, you will need a Tobii Pro device connected to your computer.
