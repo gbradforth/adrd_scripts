@@ -1,3 +1,9 @@
+"""
+playback.py
+Plays back the eye tracker's data
+@author Gwen Bradforth
+@version 2023-6-16
+"""
 import csv
 import numpy as np
 import cv2
@@ -6,8 +12,14 @@ import sys
 import ctypes
 
 def main():
+  # Read filename from user
+  filename = input('Enter your file name/path: ')
+  if not os.path.isfile(filename):
+     print("Error: Invalid path!")
+     exit(1)
+
   # Open the CSV file for reading
-  with open('./data.csv', 'r') as file:
+  with open(filename, 'r') as file:
 
       # Load the CSV data into a Python object
       reader = csv.reader(file)
@@ -31,17 +43,14 @@ def main():
 
   # Main loop
   for i in range(1, len(rows)-1):
-    if (keyboard.is_pressed('Esc')):
-        break
     
     # Draw a circle where the gaze was
-    cv2.circle(img, (int(float(rows[i][2])*image_width), int(float(rows[i][3]) * image_height) )
-              , 20, (255, 0, 0), 2)
+    screen_x = round(float(rows[i][2])*image_width)
+    screen_y = round(float(rows[i][3])*image_height)
+    cv2.circle(img, (screen_x, screen_y), 20, (255, 0, 0), 2)
+
     # Show the resulting image
     cv2.imshow('image',img)
-
-    wait_time = int( (float(rows[i][1]) - float(rows[i-1][1]) ) * 1000)
-    cv2.waitKey(wait_time)
     img = cv2.imread('./cookie.png')
 
   cv2.destroyAllWindows()
