@@ -43,6 +43,9 @@ def main():
 
   # Main loop
   for i in range(1, len(rows)-1):
+    # Exit if esc pressed
+    if (keyboard.is_pressed('Esc')):
+        break
     
     # Draw a circle where the gaze was
     screen_x = round(float(rows[i][2])*image_width)
@@ -51,6 +54,8 @@ def main():
 
     # Show the resulting image
     cv2.imshow('image',img)
+    wait_time = int( (float(rows[i][1]) - float(rows[i-1][1]) ) * 1000)
+    cv2.waitKey(wait_time)
     img = cv2.imread('./cookie.png')
 
   cv2.destroyAllWindows()
