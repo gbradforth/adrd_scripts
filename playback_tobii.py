@@ -1,10 +1,11 @@
 """
-playback.py
-Plays back the eye tracker's data
+playback_tobii.py
+Plays back the eye tracker's data from old tobii data
 @author Gwen Bradforth
 @version 2023-6-16
 """
 import csv
+import numpy as np
 import cv2
 import keyboard
 import sys
@@ -54,13 +55,7 @@ def main():
     # Show the resulting image
     cv2.imshow('image',img)
     wait_time = int( (float(rows[i][1]) - float(rows[i-1][1]) ) * 1000)
-
-    # Wait for a time (if time is 0, change to 1ms to prevent freezing)
-    if wait_time:
-      cv2.waitKey(1)
-    else:
-      cv2.waitKey(wait_time)
-      
+    cv2.waitKey(wait_time)
     img = cv2.imread('./cookie.png')
 
   cv2.destroyAllWindows()
