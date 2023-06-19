@@ -23,8 +23,8 @@ louder_audio = audio + 10
 
 # Define start and end times in milliseconds
 start_time = (args.start_time_minutes * 60 + args.start_time_seconds) * 1000
-end_time_1 = start_time + 60 * 1000
-end_time_2 = end_time_1 + 60 * 1000
+end_time_1 = start_time + 61 * 1000
+end_time_2 = end_time_1 + 61 * 1000
 
 # Trim and save the two audio segments
 trimmed_audio_1 = louder_audio[start_time:end_time_1]
