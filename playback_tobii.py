@@ -2,7 +2,7 @@
 playback_tobii.py
 Plays back the eye tracker's data from old tobii data
 @author Gwen Bradforth
-@version 2023-6-16
+@version 2023-6-19
 """
 import csv
 import numpy as np

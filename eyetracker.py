@@ -2,7 +2,7 @@
 eyetracker.py
 Tracks eye movement to an image and saves the data
 @author Gwen Bradforth, Leticia Pinto-Alva
-@version 2023-6-16
+@version 2023-6-19
 """
 import pygame
 import time
@@ -12,6 +12,16 @@ import csv
 import sys
 import keyboard
 
+# Track time
+t_start = time.time()
+t_end = t_start + 120 # change to length in seconds you want
+
+# Write to data
+fileName = r"./" + time.strftime("%m-%d_%H.%M.%S") +".csv"
+file = open(fileName,'w',newline='')
+writer = csv.writer(file)
+writer.writerow(["Time","Timestamp","X","Y"])
+
 # Callback function for gaze data
 def gaze_data_callback(gaze_data):
     # Get gaze coordinates
@@ -20,7 +30,7 @@ def gaze_data_callback(gaze_data):
 
     # Center gaze
     if np.isnan(gaze_left_eye).any() and np.isnan(gaze_right_eye).any():
-        center = [float("NaN"),float("NaN")]
+        center = np.array(center)
     elif np.isnan(gaze_left_eye).any():
         center=gaze_right_eye 
     elif np.isnan(gaze_right_eye).any():
@@ -41,55 +51,49 @@ def gaze_data_callback(gaze_data):
     #pygame.display.update()
 
 
-# Initialize Pygame
-pygame.init()
+def main():
+    # Initialize Pygame
+    pygame.init()
 
-# Find eye tracker
-found_eyetrackers = tr.find_all_eyetrackers()
-if len(found_eyetrackers) == 0:
-    print("No eye trackers found")
-    exit(1)
-my_eyetracker = found_eyetrackers[0]
+    # Find eye tracker
+    found_eyetrackers = tr.find_all_eyetrackers()
+    if len(found_eyetrackers) == 0:
+        print("No eye trackers found")
+        exit(1)
+    my_eyetracker = found_eyetrackers[0]
 
-# Set the display mode to full screen
-screen_info = pygame.display.Info()
-screen_width = screen_info.current_w
-screen_height = screen_info.current_h
-screen = pygame.display.set_mode((screen_width, screen_height), pygame.FULLSCREEN)
+    # Set the display mode to full screen
+    screen_info = pygame.display.Info()
+    screen_width = screen_info.current_w
+    screen_height = screen_info.current_h
+    screen = pygame.display.set_mode((screen_width, screen_height), pygame.FULLSCREEN)
 
-# Load the image
-image_path = "./cookie.png"
-image = pygame.image.load(image_path)
-image = pygame.transform.scale(image, (screen_width, screen_height))
+    # Load the image
+    image_path = "./cookie.png"
+    image = pygame.image.load(image_path)
+    image = pygame.transform.scale(image, (screen_width, screen_height))
 
-# Write to data
-fileName = r"./" + time.strftime("%m-%d_%H.%M.%S") +".csv"
-file = open(fileName,'w',newline='')
-writer = csv.writer(file)
-writer.writerow(["Time","Timestamp","X","Y"])
+    # Draw the image on the screen
+    screen.blit(image, (0, 0))
+    pygame.display.update()
 
-# Draw the image on the screen
-screen.blit(image, (0, 0))
-pygame.display.update()
+    # Subscribe to gaze data
+    my_eyetracker.subscribe_to(tr.EYETRACKER_GAZE_DATA, gaze_data_callback, as_dictionary=True)
 
-# Track time
-t_start = time.time()
-t_end = t_start + 120 # change to length in seconds you want
-
-# Subscribe to gaze data
-my_eyetracker.subscribe_to(tr.EYETRACKER_GAZE_DATA, gaze_data_callback, as_dictionary=True)
-
-# Main loop
-while time.time() < t_end:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
+    # Main loop
+    while time.time() < t_end:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                break
+        if keyboard.is_pressed('Esc'):
             break
-    if keyboard.is_pressed('Esc'):
-        break
 
-# Unsubscribe from gaze data
-my_eyetracker.unsubscribe_from(tr.EYETRACKER_GAZE_DATA, gaze_data_callback)
+    # Unsubscribe from gaze data
+    my_eyetracker.unsubscribe_from(tr.EYETRACKER_GAZE_DATA, gaze_data_callback)
 
-# Clean up
-file.close()
-pygame.quit()
+    # Clean up
+    file.close()
+    pygame.quit()
+
+if __name__=="__main__":
+    main()
