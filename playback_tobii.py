@@ -8,7 +8,6 @@ import csv
 import numpy as np
 import cv2
 import keyboard
-import sys
 import ctypes
 
 def main():

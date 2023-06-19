@@ -9,7 +9,6 @@ import time
 import tobii_research as tr
 import numpy as np
 import csv
-import sys
 import keyboard
 
 # Track time

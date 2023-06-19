@@ -7,9 +7,6 @@ Saves the eye tracker's data as frames
 import csv
 import numpy as np
 import cv2
-import keyboard
-import sys
-import ctypes
 import os
 
 def main():

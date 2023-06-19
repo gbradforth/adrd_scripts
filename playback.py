@@ -7,7 +7,6 @@ Plays back the eye tracker's data
 import csv
 import cv2
 import keyboard
-import sys
 import ctypes
 import os
 
