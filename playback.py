@@ -15,7 +15,7 @@ import os
 def main():
   # Read filename from user
   filename = input('Enter your file name/path: ')
-  if not os.path.isfile(filename) or file.suffix == ".csv":
+  if not os.path.isfile(filename):
      print("Error: Invalid path!")
      exit(1)
 

@@ -15,7 +15,7 @@ import os
 def main():
   # Read filename from user
   filename = input('Enter your file name/path: ')
-  if not os.path.isfile(filename) or file.suffix == ".csv":
+  if not os.path.isfile(filename):
      print("Error: Invalid path!")
      exit(1)
 
@@ -40,10 +40,6 @@ def main():
 
   # Main loop
   for i in range(1, len(rows)-1):
-    # Exit if esc pressed
-    if (keyboard.is_pressed('Esc')):
-        break
-    
     # Draw a circle where the gaze was
     screen_x = round(float(rows[i][2])*image_width)
     screen_y = round(float(rows[i][3])*image_height)
@@ -51,8 +47,6 @@ def main():
 
     # Show the resulting image
     cv2.imwrite("./frames/frame%d.jpg" % i, img)
-    wait_time = int( (float(rows[i][1]) - float(rows[i-1][1]) ) * 1000)
-    cv2.waitKey(wait_time)
     img = cv2.imread('./cookie.png')
 
   cv2.destroyAllWindows()
