@@ -5,7 +5,6 @@ Saves the eye tracker's data as frames
 @version 2023-6-16
 """
 import csv
-import numpy as np
 import cv2
 import os
 

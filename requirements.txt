@@ -4,3 +4,5 @@ opencv-python
 tobii-research
 keyboard
 os
+PIL
+pyyaml

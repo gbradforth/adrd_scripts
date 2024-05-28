@@ -33,3 +33,6 @@ Make sure to install all dependencies.
 No eye tracker found!
 ```
 This happens sometimes, run the program again. If this occurs repetitively, make sure you have your eye tracker plugged in appropriately.
+
+
+version: June 2023

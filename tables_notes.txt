@@ -1,0 +1,4 @@
+PC total unique words: 629
+
+Processing of total_table using stemming and making all filler words one
+    "uh", "uhm", "ah", "um" = "uh"
